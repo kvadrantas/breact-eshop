@@ -5,6 +5,10 @@ import ZooList from "./components/ZooList";
 import ZooModal from "./components/ZooModal";
 import ZooNav from "./components/ZooNav";
 import animalSort from "./js/animalsSort";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // for error page 404
+import PageNotFound from "./components/404-page";
+ 
+
 
 function App () {
 
@@ -111,16 +115,25 @@ function App () {
     
     
     return (
-        <>
-            <div className="zoo">
-                <ZooModal edit={edit} remove={remove} modalAnimal={modalAnimal} showModal={showModal} setShowModal={setShowModal}></ZooModal>
-                <div className="nav">
-                    <ZooNav  search={setSearchBy} filter={setFilterBy} sort={setSortBy} reset={reset}></ZooNav>
-                    <ZooCreate create={create}></ZooCreate>
-                </div>
-                <ZooList animals={animals} setShowModal={setShowModal} setModalAnimal={setModalAnimal} remove={remove}></ZooList>
-            </div>
-        </>
+        <Router>
+            <Routes>
+                <Route path="/" element={
+                    <div className="zoo">
+                        <ZooModal edit={edit} remove={remove} modalAnimal={modalAnimal} showModal={showModal} setShowModal={setShowModal}></ZooModal>
+                        <div className="nav">
+                            <ZooNav  search={setSearchBy} filter={setFilterBy} sort={setSortBy} reset={reset}></ZooNav>
+                            <ZooCreate create={create}></ZooCreate>
+                        </div>
+                        <ZooList animals={animals} setShowModal={setShowModal} setModalAnimal={setModalAnimal} remove={remove}></ZooList>
+                    </div>
+                    }>
+                </Route>
+
+                <Route path="/*" element={<PageNotFound/>} />
+            </Routes>
+        </Router>
+
+
         
     )
 
