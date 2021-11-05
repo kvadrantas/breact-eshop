@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ZooCreate({create}) {
+function Create({create}) {
 
     const [inputs, setInputs] = useState({
         product: '',
@@ -40,7 +40,7 @@ function ZooCreate({create}) {
     }
 
     return (
-        <div className="zoo-form">
+        <div className="main-form">
             <fieldset>
                 <legend>New record</legend>
                 <label htmlFor="">Product*</label>
@@ -66,4 +66,4 @@ function ZooCreate({create}) {
 
 }
 
-export default ZooCreate;
+export default Create;

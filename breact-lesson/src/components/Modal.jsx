@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import moment from "moment-timezone";
 
 
-function ZooModal({edit, remove, modalAnimal, showModal, setShowModal}) {
+function Modal({edit, remove, modalItem, showModal, setShowModal}) {
 
     const [inputs, setInputs] = useState({
         product: '',
@@ -14,13 +14,13 @@ function ZooModal({edit, remove, modalAnimal, showModal, setShowModal}) {
 
     useEffect(() => {
         setInputs({
-            product: modalAnimal.product,
-            quantity: modalAnimal.quantity,
-            price: modalAnimal.price,
-            instock: modalAnimal.instock,
-            lastorder: modalAnimal.lastorder
+            product: modalItem.product,
+            quantity: modalItem.quantity,
+            price: modalItem.price,
+            instock: modalItem.instock,
+            lastorder: modalItem.lastorder
         })
-    }, [modalAnimal]);
+    }, [modalItem]);
 
     const handleEdit = () => {
         if( !inputs.product || 
@@ -39,7 +39,7 @@ function ZooModal({edit, remove, modalAnimal, showModal, setShowModal}) {
                 price: inputs.price,
                 instock: inputs.instock,
                 lastorder: inputs.lastorder
-            }, modalAnimal.id)
+            }, modalItem.id)
         }
         // console.log(
         //     {
@@ -60,12 +60,12 @@ function ZooModal({edit, remove, modalAnimal, showModal, setShowModal}) {
 
 
     return (
-        <div className="zoo-modal" style={{
+        <div className="main-modal" style={{
             display: showModal ? 'block' : 'none',
             top: window.scrollY + 100 + 'px'
         }}>
-            <div className="zoo-modal-form">
-                <h2>Edit animal</h2>
+            <div className="main-modal-form">
+                <h2>Edit item</h2>
                 <label>Product*</label><input type="text" value={inputs.product} onChange={(e) => formControl(e, 'product')} />
                 <label>Quantity*</label><input type="text" value={inputs.quantity} onChange={(e) => formControl(e, 'quantity')} />
                 <label>Price*</label><input type="number" value={inputs.price} onChange={(e) => formControl(e, 'price')} />
@@ -78,10 +78,10 @@ function ZooModal({edit, remove, modalAnimal, showModal, setShowModal}) {
             </div>
             <button className="form-button" onClick={handleEdit}>Save</button>
             <button className="form-button" onClick={() => setShowModal(false)}>Cancel</button>
-            <button className="form-button" onClick={() => remove(modalAnimal.id)}>Delete</button>
+            <button className="form-button" onClick={() => remove(modalItem.id)}>Delete</button>
         </div>
     )
 
 }
 
-export default ZooModal;
+export default Modal;

@@ -1,11 +1,11 @@
-import ZooAnimal from "./ZooAnimal";
+import Item from "./Item";
 
-function ZooList({animals, setShowModal, setModalAnimal, remove}) {
+function List({items, setShowModal, setModalItem, remove}) {
 
     return (
-        <div className="zoo-list">
+        <div className="main-list">
             <div className="tbl-header">
-                <div className="zoo-list-animal-stats">
+                <div className="main-list-item-stats">
                     <span>Product</span>
                     <span>Quantity</span>
                     <span>Price</span>
@@ -17,9 +17,9 @@ function ZooList({animals, setShowModal, setModalAnimal, remove}) {
     
                 </div>
             </div>
-            {animals.map(animal => <ZooAnimal key={animal.id} animal={animal} setShowModal={setShowModal} setModalAnimal={setModalAnimal} remove={remove}></ZooAnimal>)}
+            {items.map(item => <Item key={item.id} item={item} setShowModal={setShowModal} setModalItem={setModalItem} remove={remove}></Item>)}
         </div>
     )
 }
 
-export default ZooList; 
+export default List; 

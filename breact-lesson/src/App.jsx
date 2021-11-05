@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import ZooCreate from "./components/ZooCreate";
-import ZooList from "./components/ZooList";
-import ZooModal from "./components/ZooModal";
-import ZooNav from "./components/ZooNav";
-import animalSort from "./js/animalsSort";
+import Create from "./components/Create";
+import List from "./components/List";
+import Modal from "./components/Modal";
+import Nav from "./components/Nav";
+import Sort from "./js/Sort";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // for error page 404
 import PageNotFound from "./components/404-page";
  
@@ -12,10 +12,10 @@ import PageNotFound from "./components/404-page";
 
 function App () {
 
-    const [animals, setAnimals] = useState([]);
+    const [items, setItems] = useState([]);
     const [lastUpdate, setLastUpdate] = useState(Date.now());
     const [showModal, setShowModal] = useState(false);
-    const [modalAnimal, setModalAnimal] = useState({
+    const [modalItem, setModalItem] = useState({
         product: '',
         quantity: '',
         price: '',
@@ -28,7 +28,7 @@ function App () {
     const [filterBy, setFilterBy] = useState('');
     
     // useEffect(() => {
-    //     axios.get('http://localhost:3003/animal-types')
+    //     axios.get('http://localhost:3003/item-types')
     //         .then(res => {
     //             setTypes(res.data);
     //             // console.log(res.data);
@@ -39,7 +39,7 @@ function App () {
         if (filterBy) {
             axios.get('http://localhost:3003/stock-filter/'+filterBy)
             .then(res => {
-                setAnimals(res.data);
+                setItems(res.data);
                 // console.log(res.data);
             })
         }
@@ -53,7 +53,7 @@ function App () {
     const [sortBy, setSortBy] = useState('');
     useEffect(() => {
         if (sortBy) {
-            setAnimals(animalSort(animals, sortBy, setFilterBy));
+            setItems(Sort(items, sortBy, setFilterBy));
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortBy])
@@ -63,9 +63,9 @@ function App () {
 
     useEffect(() => {
         if (searchBy) {
-        axios.get('http://localhost:3003/animal-search/?s='+searchBy)
+        axios.get('http://localhost:3003/item-search/?s='+searchBy)
             .then(res => {
-                setAnimals(res.data);
+                setItems(res.data);
                 // console.log(res.data);
             })
         }
@@ -78,14 +78,14 @@ function App () {
         axios.get('http://localhost:3003/stock')
         .then(res => {
             // console.log(res.data)
-            setAnimals(res.data);
+            setItems(res.data);
         })
     }, [lastUpdate])
 
     // NEW RECORD
-    const create = animal => {
-        // console.log(animal)
-        axios.post('http://localhost:3003/stock', animal)
+    const create = item => {
+        // console.log(item)
+        axios.post('http://localhost:3003/stock', item)
         .then(res => {
             // console.log(res.data)
             setLastUpdate(Date.now());
@@ -93,9 +93,9 @@ function App () {
     }
 
     // EDIT RECORD 
-    const edit = (animal, id) => {
+    const edit = (item, id) => {
         setShowModal(false);
-        axios.put('http://localhost:3003/stock/' + id, animal)
+        axios.put('http://localhost:3003/stock/' + id, item)
         .then(res => {
             // console.log(res.data);
             setLastUpdate(Date.now());
@@ -118,13 +118,13 @@ function App () {
         <Router>
             <Routes>
                 <Route path="/" element={
-                    <div className="zoo">
-                        <ZooModal edit={edit} remove={remove} modalAnimal={modalAnimal} showModal={showModal} setShowModal={setShowModal}></ZooModal>
+                    <div className="main">
+                        <Modal edit={edit} remove={remove} modalItem={modalItem} showModal={showModal} setShowModal={setShowModal}></Modal>
                         <div className="nav">
-                            <ZooNav  search={setSearchBy} filter={setFilterBy} sort={setSortBy} reset={reset}></ZooNav>
-                            <ZooCreate create={create}></ZooCreate>
+                            <Nav  search={setSearchBy} filter={setFilterBy} sort={setSortBy} reset={reset}></Nav>
+                            <Create create={create}></Create>
                         </div>
-                        <ZooList animals={animals} setShowModal={setShowModal} setModalAnimal={setModalAnimal} remove={remove}></ZooList>
+                        <List items={items} setShowModal={setShowModal} setModalItem={setModalItem} remove={remove}></List>
                     </div>
                     }>
                 </Route>
@@ -132,11 +132,7 @@ function App () {
                 <Route path="/*" element={<PageNotFound/>} />
             </Routes>
         </Router>
-
-
-        
     )
-
 }
 
 export default App; 

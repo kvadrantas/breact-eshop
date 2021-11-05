@@ -109,10 +109,10 @@ app.delete('/stock/:id', (req, res) => {
 
 
 // GET DISTINCT TYPES
-// app.get('/animal-types', (req, res) => {
+// app.get('/stock-types', (req, res) => {
 //     const sql = `
 //         SELECT DISTINCT type
-//         FROM zverys
+//         FROM stock
 //     `;
 //     con.query(sql, (err, results) => {
 //         if (err) {
@@ -153,11 +153,11 @@ app.get('/stock-filter/:t', (req, res) => {
 })
 
 // SEARCH DATA
-// app.get('/animal-search', (req, res) => {
+// app.get('/stock-search', (req, res) => {
 //     const searchText = (`%${req.query.s}%`).toLowerCase();
 //     const sql = `
 //         SELECT *
-//         FROM zverys
+//         FROM stock
 //         where LOWER(type) like ? OR LOWER(name) like ?
 //     `;
 //     con.query(sql, [searchText, searchText], (err, results) => {

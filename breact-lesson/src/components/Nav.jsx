@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ZooNav({ filter, reset, search, sort}) {
+function Nav({ filter, reset, search, sort}) {
 
     // const [filterValue, setFilterValue] = useState('');
     // const [searchValue, setSearchValue] = useState('');
@@ -29,14 +29,14 @@ function ZooNav({ filter, reset, search, sort}) {
     }
 
     return (
-        <div className="zoo-nav">
+        <div className="main-nav">
             <fieldset>
                 {/* <fieldset>
                     <legend>Filter</legend>
                     <div className="filter">
                         <label>By type</label><br></br>
                         <select onChange={selectFilter} value={filterValue} >
-                            <option value="default"  hidden>Select animal...</option>
+                            <option value="default"  hidden>Select item...</option>
                             {
                                 types.map(t => <option key={t.type} value={t.type}>{t.type}</option>)
                             }
@@ -69,4 +69,4 @@ function ZooNav({ filter, reset, search, sort}) {
     )
 }
 
-export default ZooNav;
+export default Nav;
