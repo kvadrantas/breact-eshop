@@ -18,25 +18,36 @@ function ZooCreate({create}) {
     }
 
     const handleCreate = () => {
-        create(inputs)
-        setInputs({
-            product: '',
-            quantity: '',
-            price: '',
-            instock: '',
-            lastorder: ''
-        });
+        if( !inputs.product || 
+            !inputs.quantity || parseFloat(inputs.quantity) < 0 || !isFinite(parseFloat(inputs.quantity)) ||
+            !inputs.price || parseFloat(inputs.price) < 0 || !isFinite(parseFloat(inputs.quantity))) {
+            alert(`
+                Please check your input!
+
+                - required fields cannot be empty;
+                - quantity and price cannot be negative or infinite.
+            `)
+        } else {
+            create(inputs)
+            setInputs({
+                product: '',
+                quantity: '',
+                price: '',
+                instock: '',
+                lastorder: ''
+            });
+        }
     }
 
     return (
         <div className="zoo-form">
             <fieldset>
                 <legend>New record</legend>
-                <label htmlFor="">Product</label>
+                <label htmlFor="">Product*</label>
                 <input type="text" value={inputs.product} onChange={(e) => formControl(e, 'product')} />
-                <label htmlFor="">Quantity</label>
+                <label htmlFor="">Quantity*</label>
                 <input type="number" value={inputs.quantity} onChange={(e) => formControl(e, 'quantity')} />
-                <label htmlFor="">Price</label>
+                <label htmlFor="">Price*</label>
                 <input type="number" value={inputs.price} onChange={(e) => formControl(e, 'price')} />
 
                 <label>In Stock</label>

@@ -23,13 +23,24 @@ function ZooModal({edit, remove, modalAnimal, showModal, setShowModal}) {
     }, [modalAnimal]);
 
     const handleEdit = () => {
-        edit({
-            product: inputs.product,
-            quantity: inputs.quantity,
-            price: inputs.price,
-            instock: inputs.instock,
-            lastorder: inputs.lastorder
-        }, modalAnimal.id)
+        if( !inputs.product || 
+            !inputs.quantity || parseFloat(inputs.quantity) < 0 || !isFinite(parseFloat(inputs.quantity)) ||
+            !inputs.price || parseFloat(inputs.price) < 0 || !isFinite(parseFloat(inputs.quantity))) {
+            alert(`
+                Please check your input!
+
+                - required fields cannot be empty;
+                - quantity and price cannot be negative or infinite.
+            `)
+        } else {
+            edit({
+                product: inputs.product,
+                quantity: inputs.quantity,
+                price: inputs.price,
+                instock: inputs.instock,
+                lastorder: inputs.lastorder
+            }, modalAnimal.id)
+        }
         // console.log(
         //     {
         //         product: inputs.product,
@@ -55,9 +66,9 @@ function ZooModal({edit, remove, modalAnimal, showModal, setShowModal}) {
         }}>
             <div className="zoo-modal-form">
                 <h2>Edit animal</h2>
-                <label>Product</label><input type="text" value={inputs.product} onChange={(e) => formControl(e, 'product')} />
-                <label>Quantity</label><input type="text" value={inputs.quantity} onChange={(e) => formControl(e, 'quantity')} />
-                <label>Price</label><input type="number" value={inputs.price} onChange={(e) => formControl(e, 'price')} />
+                <label>Product*</label><input type="text" value={inputs.product} onChange={(e) => formControl(e, 'product')} />
+                <label>Quantity*</label><input type="text" value={inputs.quantity} onChange={(e) => formControl(e, 'quantity')} />
+                <label>Price*</label><input type="number" value={inputs.price} onChange={(e) => formControl(e, 'price')} />
                 <label>In Stock</label>
                 <select name="" id="" value={inputs.instock} onChange={(e) => formControl(e, 'instock')}>
                     <option value="1">yes</option>

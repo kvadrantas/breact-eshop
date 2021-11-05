@@ -58,9 +58,9 @@ app.post('/stock', (req, res) => {
         (product, quantity, price, instock, lastorder)
         values (?, ?, ?, ?, ?)
     `
-    con.query(sql, [req.body.product, req.body.quantity, req.body.price, req.body.instock, req.body.lastorder], (err, results) => {
+    con.query(sql, [req.body.product, req.body.quantity, req.body.price, req.body.instock||'0', req.body.lastorder||null], (err, results) => {
         if (err) throw err;
-        console.log(results);
+        // console.log(results);
         res.send(results)
     });
 })
@@ -68,7 +68,7 @@ app.post('/stock', (req, res) => {
 
 // EDIT RECORD 
 app.put('/stock/:id', (req, res) => {
-    console.log(req.body.born)
+    // console.log(req.body.born)
     const sql = `
         UPDATE stock
         SET product = ?, quantity = ?, price = ?, instock = ?, lastorder = ?
@@ -124,8 +124,8 @@ app.delete('/stock/:id', (req, res) => {
 
 // FILTER - GET DATA BY TYPE
 app.get('/stock-filter/:t', (req, res) => {
-    console.log(typeof req.params.t, req.params.t);
-    console.log(req.params.t === '3');
+    // console.log(typeof req.params.t, req.params.t);
+    // console.log(req.params.t === '3');
     let sql;
     if(req.params.t === 'ASC') {
         sql = `
@@ -148,7 +148,7 @@ app.get('/stock-filter/:t', (req, res) => {
             throw err;
         }
         res.send(results);
-        console.log(results)
+        // console.log(results)
     })
 })
 

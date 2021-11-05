@@ -62,7 +62,7 @@ function App () {
         axios.get('http://localhost:3003/animal-search/?s='+searchBy)
             .then(res => {
                 setAnimals(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             })
         }
     }, [searchBy])
@@ -80,7 +80,7 @@ function App () {
 
     // NEW RECORD
     const create = animal => {
-        console.log(animal)
+        // console.log(animal)
         axios.post('http://localhost:3003/stock', animal)
         .then(res => {
             // console.log(res.data)

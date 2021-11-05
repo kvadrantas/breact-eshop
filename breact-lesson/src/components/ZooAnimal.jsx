@@ -21,14 +21,14 @@ function ZooAnimal({animal, setShowModal, setModalAnimal, remove}) {
             {/* <i className="far fa-trash-alt delete" onClick={() => remove(animal.id)}></i> */}
     
             <div className="zoo-list-animal-stats">
-                <span>{animal.product}</span>
-                <span>{animal.quantity}</span>
-                <span>{animal.price}</span>
-                <span>{animal.price * animal.quantity}</span>
-                <span>{stock(animal.instock)}</span>
-                <span>{moment.tz(animal.lastorder, "Europe/Vilnius").format('YYYY-MM-DD')}  </span>
+                <span className="zoo-list-animal-name">{animal.product}</span>
+                <span><span className="field-names">Quantity: </span>{animal.quantity}</span>
+                <span><span className="field-names">Price: </span>{animal.price}</span>
+                <span><span className="field-names">Quantity: </span>{animal.price * animal.quantity}</span>
+                <span><span className="field-names">In Stock: </span>{stock(animal.instock)}</span>
+                <span><span className="field-names">Last Order: </span>{moment.tz(animal.lastorder, "Europe/Vilnius").format('YYYY-MM-DD')}  </span>
                 <button className="form-button" onClick={showEdit}>Edit</button>
-                <button className="form-button" onClick={showEdit}>Delete</button>
+                <button className="form-button" onClick={() => remove(animal.id)}>Delete</button>
             </div>
         </div>
     )

@@ -14,13 +14,26 @@ body * {
   min-width: 100vw;
   min-height: 100vh;
 
+  .tbl-header {
+    padding: 15px;
+    margin: 15px 5px;
+    span {
+      font-size: 18px;
+      color: #EE7023;
+    }
+    button {
+      background-color: transparent;
+      border-color: transparent;
+      color: transparent;
+    }
+  }
   &-list {
-    height: 108vh;
+    height: 100vh;
     width: 100%;
     overflow-y: scroll;
     // display: flex;     // block view
     justify-content: space-evenly;
-    align-items: flex-start;
+    align-items: stretch;
     flex-wrap: wrap;
     &-animal {
       position: relative;
@@ -47,13 +60,15 @@ body * {
         left: 90%;
         justify-content: flex-end;
       }
-      &-name {
-        color: #512b2b;
-        font-weight: bold;
-        font-size: 30px;
-        text-align: center;
-        padding: 0;
-      }
+      // block view
+      // &-name {
+      //   // width: 200%;
+      //   color: #512b2b;
+      //   font-weight: bold;
+      //   font-size: 20px;
+      //   text-align: center;
+      //   padding: 0;
+      // }
       &-type {
         color: #f35b1c;
         font-size: 20px;
@@ -70,6 +85,9 @@ body * {
         text-align: center;
         // padding: 0 0 20px 0;       // block view
         color: grey;
+        .field-names {
+          display: none;
+        }
         button {
           margin: 0 0 0 10px;
         }
@@ -118,6 +136,11 @@ body * {
     // margin: 20px;
     // padding: 10px;
     box-sizing: border-box;
+    select {
+      display: block;
+      height: 24px;
+      margin-bottom: 21px;
+    }
   }
 
   &-modal {
@@ -149,6 +172,12 @@ body * {
 
     h2 {
       margin-top: 10px;
+    }
+
+    select {
+      display: block;
+      height: 24px;
+      margin-bottom: 21px;
     }
   }
   &-nav {
@@ -260,10 +289,57 @@ fieldset {
 
 
 // RESPONSIVE 
+@media(max-width: 930px) {
+  .zoo {
+    &-list {
+      display: flex;     // block view
+      .tbl-header {
+        display: none;
+      }
+      &-animal {
+        &-name {
+          width: 100%;
+          color: #512b2b;
+          font-weight: bold;
+          font-size: 20px;
+          text-align: center;
+          padding: 0;
+          margin-bottom: 25px;
+        }
+        &-stats {
+          align-items: flex-start;          // block view    align-items: flex-start;
+          flex-direction: column;          // block view    flex-direction: column; 
+          padding: 0 0 20px 0;       // block view
+          .field-names {
+            display: inline;
+          }
+          span:first-of-type {
+            width: 100%;
+            margin-top: 20px;        // block view
+          }
+        }
+        .form-button {
+          margin: 35px 0 0 0;
+        }
+        .form-button:last-of-type {
+          margin-top: 10px;
+        }
+      }
+    }
+    
+  }
+}
+
 @media(max-width: 490px) {
 
   .zoo {
     display: block;
+
+    &-list {
+      &-animal {
+        flex-basis: 80%;
+      }
+    }
 
     &-form {
       display: block;
