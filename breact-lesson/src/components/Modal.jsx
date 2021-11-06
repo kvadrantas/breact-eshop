@@ -33,6 +33,7 @@ function Modal({edit, remove, modalItem, showModal, setShowModal}) {
                 - quantity and price cannot be negative or infinite.
             `)
         } else {
+            // console.log(modalItem.lastorder)
             edit({
                 product: inputs.product,
                 quantity: inputs.quantity,

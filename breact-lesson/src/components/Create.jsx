@@ -33,7 +33,7 @@ function Create({create}) {
                 product: '',
                 quantity: '',
                 price: '',
-                instock: '',
+                instock: '0',
                 lastorder: ''
             });
         }

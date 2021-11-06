@@ -1,3 +1,4 @@
+import moment from "moment-timezone";
 // ----------------- EXPRESS SERVER -----------------
 // const express = require('express')
 import express, { json } from "express";
@@ -46,7 +47,10 @@ app.get('/stock/', (req, res) => {
     con.query(sql, (err, results) => {
         if (err) throw err;
         // console.log(results);
-        res.send(results)
+        // console.log(moment.tz('2021-11-03T22:00:00.000Z', "Europe/Vilnius").format('YYYY-MM-DD'))
+        // console.log('AAA ', results);
+        // console.log('BBB ', fixDate(results));
+        res.send(results);
     });
 })
 
@@ -58,7 +62,7 @@ app.post('/stock', (req, res) => {
         (product, quantity, price, instock, lastorder)
         values (?, ?, ?, ?, ?)
     `
-    con.query(sql, [req.body.product, req.body.quantity, req.body.price, req.body.instock||'0', req.body.lastorder||null], (err, results) => {
+    con.query(sql, [req.body.product, req.body.quantity, req.body.price, req.body.instock||'0', req.body.lastorder.slice(0, 10)||'0001-01-01'], (err, results) => {
         if (err) throw err;
         // console.log(results);
         res.send(results)
@@ -68,7 +72,7 @@ app.post('/stock', (req, res) => {
 
 // EDIT RECORD 
 app.put('/stock/:id', (req, res) => {
-    // console.log(req.body.born)
+    // console.log(req.body.lastorder);
     const sql = `
         UPDATE stock
         SET product = ?, quantity = ?, price = ?, instock = ?, lastorder = ?
@@ -167,3 +171,17 @@ app.get('/stock-filter/:t', (req, res) => {
 //         res.send(results);
 //     })
 // })
+
+
+function fixDate(data) {
+    return data.map((e, i) =>  {
+        return({
+            id: i+1,
+            product: e.product,
+            quantity: e.quantity,
+            price: e.price,
+            instock: e.instock,
+            lastorder: moment.tz(e.lastorder, "Europe/Vilnius").format('YYYY-MM-DD')
+        })
+    })
+}

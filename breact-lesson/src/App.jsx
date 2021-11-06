@@ -7,6 +7,7 @@ import Nav from "./components/Nav";
 import Sort from "./js/Sort";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // for error page 404
 import PageNotFound from "./components/404-page";
+import fixDate from "./js/fixDate";
  
 
 
@@ -39,7 +40,7 @@ function App () {
         if (filterBy) {
             axios.get('http://localhost:3003/stock-filter/'+filterBy)
             .then(res => {
-                setItems(res.data);
+                setItems(fixDate(res.data));
                 // console.log(res.data);
             })
         }
@@ -65,7 +66,7 @@ function App () {
         if (searchBy) {
         axios.get('http://localhost:3003/item-search/?s='+searchBy)
             .then(res => {
-                setItems(res.data);
+                setItems(fixDate(res.data));
                 // console.log(res.data);
             })
         }
@@ -78,7 +79,7 @@ function App () {
         axios.get('http://localhost:3003/stock')
         .then(res => {
             // console.log(res.data)
-            setItems(res.data);
+            setItems(fixDate(res.data));
         })
     }, [lastUpdate])
 
